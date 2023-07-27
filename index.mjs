@@ -27,6 +27,7 @@ fetch('http://localhost:3000/obtenerAlumnos')
 
 function showAlumnos(array) {
     const table = document.getElementById("listStudents");
+    const modal = document.getElementById("container-modal");
     let tableContent
 
     array.forEach((item, index) => {
@@ -36,7 +37,33 @@ function showAlumnos(array) {
             <td>${item.email}</td>
             <td>${item.boleta}</td>
             <td><button type="button" class="btn btn-danger" onclick="eliminarAlumno('${item.id}')">Eliminar</button></td>
+            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${item.id}">
+            Ver detalle</button></td>
         </tr>`;
+
+        modal.innerHTML += `
+        <div class="modal fade" id='${item.id}' data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">${item.name}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <p>e-mail:  ${item.email} </p>
+          <p>Boleta:  ${item.boleta}  </p>
+          <p>Materia:  ${item.materias[0].name} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        `
+        
         }
     );
     table.innerHTML = tableContent;

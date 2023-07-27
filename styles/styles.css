@@ -29,3 +29,7 @@ p {
 #container-student{
     display: none;
 }
+
+.modal-content {
+    background-color:  rgb(33, 44, 79);
+}
